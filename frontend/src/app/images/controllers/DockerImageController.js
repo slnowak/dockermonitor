@@ -7,7 +7,7 @@
 class DockerImageController {
 
   constructor($scope, DockerImageResource) {
-    this.DockerImageResource = DockerImageResource;
+    this.DockerContainerResource = DockerImageResource;
     this.$scope = $scope;
 
     this.$scope.getDockerImages = this.getDockerImages;
@@ -16,7 +16,7 @@ class DockerImageController {
   }
 
   getDockerImages() {
-    this.DockerImageResource
+    this.DockerContainerResource
       .getList()
       .then(dockerImages => this.$scope.dockerImages = dockerImages);
   }

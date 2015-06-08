@@ -1,12 +1,33 @@
-<div>
-  images!
+<div class="container-fluid">
 
-  <div ng-repeat="dockerImage in dockerImages">
-    {{dockerImage.repository}}
-    {{dockerImage.tag}}
-    {{dockerImage.imageId}}
-    {{dockerImage.created}}
-    {{dockerImage.size}}
+  <div class="panel panel-primary" ng-repeat="dockerImage in dockerImages">
+    <div class="panel-heading">
+      <h4 class="panel-title">Docker Image</h4>
+    </div>
+
+    <div class="panel-body">
+      <p>
+        <span><strong>Repository name: </strong></span> <span>{{dockerImage.repository}}</span>
+      </p>
+
+      <p>
+        <span><strong>Repository tag: </strong></span> <span>{{dockerImage.tag}}</span>
+      </p>
+
+      <p>
+        <span><strong>Image id: </strong></span> <span>{{dockerImage.imageId}}</span>
+      </p>
+
+      <p>
+        <span><strong>Created: </strong> </span> <span>{{dockerImage.created | date:"MM/dd/yyyy 'at' h:mma"}}</span>
+      </p>
+
+      <p>
+        <span><strong>Size: </strong> </span> <span>{{dockerImage.size}} MB</span>
+      </p>
+
+      <button class="btn btn-primary">Create container!</button>
+    </div>
   </div>
 
 </div>

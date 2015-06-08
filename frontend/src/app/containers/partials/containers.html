@@ -1,3 +1,24 @@
-<div>
-  containers!
+<div class="container-fluid">
+
+  <div class="panel panel-primary" ng-repeat="dockerContainer in dockerContainers">
+    <div class="panel-heading">
+      <h4 class="panel-title">Docker Container</h4>
+    </div>
+
+    <div class="panel-body">
+      <p>
+        <span><strong>Container ID: </strong></span> <span>{{dockerContainer.containerId}}</span>
+      </p>
+
+      <p>
+        <span><strong>Container status: </strong></span> <span>{{dockerContainer.status}}</span>
+      </p>
+
+      <p>
+        <span><strong>Command: </strong></span> <span>{{dockerContainer.command}}</span>
+      </p>
+
+    </div>
+  </div>
+
 </div>

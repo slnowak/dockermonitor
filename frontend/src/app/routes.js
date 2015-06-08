@@ -17,7 +17,8 @@ var Routes = function ($stateProvider, $urlRouterProvider) {
     })
     .state('containers', {
       url: '/containers',
-      templateUrl: 'app/containers/partials/containers.html'
+      templateUrl: 'app/containers/partials/containers.html',
+      controller: 'DockerContainerController'
     });
 
   $urlRouterProvider.otherwise('/');
