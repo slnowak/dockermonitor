@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,6 +19,11 @@ import java.util.stream.Collectors;
 public class ImageRepository {
 
     private final DockerClient dockerClient;
+    private static final String[] REPO_TAG_WITH_EMPTY_TAGS;
+
+    static {
+        REPO_TAG_WITH_EMPTY_TAGS = new String[]{"<none>:<none>"};
+    }
 
     @Autowired
     public ImageRepository(DockerClient dockerClient) {
@@ -28,11 +34,12 @@ public class ImageRepository {
 
         return getDockerImages()
                 .stream()
+                .filter(image -> !Arrays.equals(REPO_TAG_WITH_EMPTY_TAGS, image.getRepoTags()))
                 .map(image -> new DockerImage(
-                        image.getRepoTags()[0],
-                        image.getRepoTags()[0],
+                        determineRepositoryName(image.getRepoTags()),
+                        determineTag(image.getRepoTags()),
                         image.getId(),
-                        LocalDateTime.now(),
+                        image.getCreated(),
                         image.getSize()
                 ))
                 .collect(Collectors.toList());
@@ -43,5 +50,13 @@ public class ImageRepository {
                 listImagesCmd()
                 .withShowAll(true)
                 .exec();
+    }
+
+    private String determineRepositoryName(String[] repositoryTags) {
+        return repositoryTags[0].split(":")[0];
+    }
+
+    private String determineTag(String[] repositoryTags) {
+        return repositoryTags[0].split(":")[1];
     }
 }
