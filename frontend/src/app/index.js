@@ -1,6 +1,15 @@
 'use strict';
 
+import DockerImagesModule from './images/images.module.js';
 import Routes from './routes.js';
 
-angular.module('frontend', ['ngAnimate', 'ngCookies', 'ngTouch', 'ngSanitize', 'restangular', 'ui.router', 'ui.bootstrap'])
+angular.module('dockerManager', [
+  DockerImagesModule.name,
+  'ngAnimate',
+  'ngCookies',
+  'ngTouch',
+  'ngSanitize',
+  'ui.router',
+  'ui.bootstrap'
+])
   .config(Routes);

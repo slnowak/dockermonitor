@@ -1,3 +1,12 @@
 <div>
   images!
+
+  <div ng-repeat="dockerImage in dockerImages">
+    {{dockerImage.repository}}
+    {{dockerImage.tag}}
+    {{dockerImage.imageId}}
+    {{dockerImage.created}}
+    {{dockerImage.size}}
+  </div>
+
 </div>

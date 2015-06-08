@@ -12,7 +12,8 @@ var Routes = function ($stateProvider, $urlRouterProvider) {
     })
     .state('images', {
       url: '/images',
-      templateUrl: 'app/images/partials/images.html'
+      templateUrl: 'app/images/partials/images.html',
+      controller: 'DockerImageController'
     })
     .state('containers', {
       url: '/containers',
