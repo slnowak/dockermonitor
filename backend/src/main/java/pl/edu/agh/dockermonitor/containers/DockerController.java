@@ -1,9 +1,8 @@
 package pl.edu.agh.dockermonitor.containers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -16,15 +15,23 @@ import java.util.Collection;
 public class DockerController {
 
     private final DockerRepository dockerRepository;
+    private final ContainerLifecycleManager manager;
 
     @Autowired
-    public DockerController(DockerRepository dockerRepository) {
+    public DockerController(DockerRepository dockerRepository, ContainerLifecycleManager manager) {
         this.dockerRepository = dockerRepository;
+        this.manager = manager;
     }
 
     @RequestMapping(value = "/containers", method = RequestMethod.GET)
     public Collection<DockerContainer> containers() {
         return dockerRepository.loadContainers();
+    }
+
+    @RequestMapping(value = "/containers", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.CREATED)
+    public void startContainer(@RequestBody String imageName) {
+        manager.startContainer(imageName);
     }
 }
 
