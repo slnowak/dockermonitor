@@ -23,7 +23,7 @@ public class ImageController {
     }
 
     @RequestMapping(value = "/images", method = RequestMethod.GET)
-    public Collection<DockerImage> sayHello() {
+    public Collection<DockerImage> images() {
         return imageRepository.loadImages();
     }
 }
