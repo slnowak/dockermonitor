@@ -11,7 +11,6 @@ let CreateContainerModalController = ($scope, $modalInstance, imageId) => {
     imageId: imageId,
     command: null,
     ports: null
-
   };
 
   $scope.submit = () => {
@@ -20,7 +19,7 @@ let CreateContainerModalController = ($scope, $modalInstance, imageId) => {
 
   $scope.cancel = () => {
     $modalInstance.dismiss('cancel');
-  }
+  };
 };
 
 CreateContainerModalController.$inject = ['$scope', '$modalInstance', 'imageId'];

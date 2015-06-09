@@ -5,8 +5,8 @@
 'use strict';
 
 import CommonModule from '../common/common.module.js';
-import DockerImageResource from './services/DockerImageResource.js'
-import DockerImageController from './controllers/DockerImageController.js'
+import DockerImageResource from './services/DockerImageResource.js';
+import DockerImageController from './controllers/DockerImageController.js';
 import CreateContainerController from './controllers/CreateContainerController.js';
 import CreateContainerModalController from './controllers/CreateContainerModalController.js';
 

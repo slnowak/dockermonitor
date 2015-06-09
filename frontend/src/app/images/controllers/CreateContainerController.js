@@ -25,7 +25,7 @@ let CreateContainerController = ($scope, $modal, DockerContainerResource) => {
         DockerContainerResource.all('')
           .post(newContainerData);
       });
-  }
+  };
 };
 
 CreateContainerController.$inject = ['$scope', '$modal', 'DockerContainerResource'];

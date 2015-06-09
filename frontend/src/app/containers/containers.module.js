@@ -5,7 +5,7 @@
 'use strict';
 
 import CommonModule from '../common/common.module.js';
-import DockerContainerController from './controllers/DockerContainerController.js'
+import DockerContainerController from './controllers/DockerContainerController.js';
 
 let DockerContainerModule = angular.module('dockerManager.dockerContainersModule', [
   CommonModule.name

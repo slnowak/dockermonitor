@@ -21,7 +21,7 @@ let DockerContainerController = ($scope, DockerContainerResource) => {
       })
       .then(() => {
         getDockerContainers();
-      })
+      });
   };
 
   $scope.getDockerContainers();

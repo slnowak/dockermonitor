@@ -4,7 +4,7 @@
 
 'use strict';
 
-import DockerContainerResource from './services/DockerContainerResource.js'
+import DockerContainerResource from './services/DockerContainerResource.js';
 
 let CommonModule = angular.module('dockerManager.commonModule', ['restangular'])
   .factory('DockerContainerResource', DockerContainerResource);
