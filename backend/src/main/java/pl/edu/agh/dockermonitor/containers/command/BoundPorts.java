@@ -1,4 +1,4 @@
-package pl.edu.agh.dockermonitor.containers;
+package pl.edu.agh.dockermonitor.containers.command;
 
 import lombok.AccessLevel;
 import lombok.Data;

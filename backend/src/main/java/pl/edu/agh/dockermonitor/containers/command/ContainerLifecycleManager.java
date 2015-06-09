@@ -1,4 +1,4 @@
-package pl.edu.agh.dockermonitor.containers;
+package pl.edu.agh.dockermonitor.containers.command;
 
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.command.CreateContainerCmd;

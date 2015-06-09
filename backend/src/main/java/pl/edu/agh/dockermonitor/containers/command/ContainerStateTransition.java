@@ -1,4 +1,4 @@
-package pl.edu.agh.dockermonitor.containers;
+package pl.edu.agh.dockermonitor.containers.command;
 
 /**
  * Created by novy on 09.06.15.

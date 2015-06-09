@@ -4,6 +4,7 @@ import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.model.Image;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import pl.edu.agh.dockermonitor.common.UnixEpochConversionAware;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
  */
 
 @Component
-public class ImageRepository {
+public class ImageRepository implements UnixEpochConversionAware {
 
     private final DockerClient dockerClient;
     private static final String[] REPO_TAG_WITH_EMPTY_TAGS;
@@ -48,10 +49,6 @@ public class ImageRepository {
     private BigDecimal convertToMbytes(long possiblyBytes) {
         // weird...
         return BigDecimal.valueOf(possiblyBytes / 10000, 2);
-    }
-
-    private long fromUnixEpoch(long unixDate) {
-        return unixDate * 1000;
     }
 
     private List<Image> getDockerImages() {

@@ -1,0 +1,20 @@
+<div>
+  <button ng-if="dockerContainer.inspectionData.state === 'STOPPED'"
+    class="btn btn-primary" ng-click="performContainerAction(dockerContainer.basicData.containerId, 'START')">Start
+  </button>
+  <button ng-if="dockerContainer.inspectionData.state === 'RUNNING'"
+    class="btn btn-primary" ng-click="performContainerAction(dockerContainer.basicData.containerId, 'STOP')">
+    Stop
+  </button>
+  <button ng-if="dockerContainer.inspectionData.state === 'RUNNING'"
+    class="btn btn-primary" ng-click="performContainerAction(dockerContainer.basicData.containerId, 'PAUSE')">
+    Pause
+  </button>
+  <button ng-if="dockerContainer.inspectionData.state === 'PAUSED'"
+    class="btn btn-primary" ng-click="performContainerAction(dockerContainer.basicData.containerId, 'UNPAUSE')">Unpause
+  </button>
+  <button ng-if="dockerContainer.inspectionData.state === 'STOPPED'"
+    class="btn btn-danger" ng-click="performContainerAction(dockerContainer.basicData.containerId, 'REMOVE')">
+    Remove
+  </button>
+</div>

@@ -4,12 +4,18 @@ import com.google.common.collect.ImmutableMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import pl.edu.agh.dockermonitor.containers.command.ContainerLifecycleManager;
+import pl.edu.agh.dockermonitor.containers.command.ContainerStateTransition;
+import pl.edu.agh.dockermonitor.containers.command.ContainerStateTransitionDTO;
+import pl.edu.agh.dockermonitor.containers.command.CreateContainerRequest;
+import pl.edu.agh.dockermonitor.containers.query.ContainerRepository;
+import pl.edu.agh.dockermonitor.containers.query.containerinfo.DockerContainer;
 
 import java.util.Collection;
 import java.util.Map;
 import java.util.function.Consumer;
 
-import static pl.edu.agh.dockermonitor.containers.ContainerStateTransition.*;
+import static pl.edu.agh.dockermonitor.containers.command.ContainerStateTransition.*;
 
 /**
  * Created by novy on 08.06.15.

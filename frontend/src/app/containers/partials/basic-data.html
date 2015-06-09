@@ -1,0 +1,32 @@
+<div>
+  <p>
+    <span><strong>Container ID: </strong></span> <span>{{dockerContainer.basicData.containerId}}</span>
+  </p>
+
+  <p>
+    <span><strong>Image ID: </strong></span> <span>{{dockerContainer.basicData.imageId}}</span>
+  </p>
+
+  <div>
+    <p>
+      <span><strong>Names: </strong></span>
+    </p>
+
+    <ul>
+      <li class="list-unstyled" ng-repeat="name in dockerContainer.basicData.names">{{name}}</li>
+    </ul>
+  </div>
+
+  <p>
+    <span><strong>Container status: </strong></span> <span>{{dockerContainer.basicData.status}}</span>
+  </p>
+
+  <p>
+    <span><strong>Command: </strong></span> <span>{{dockerContainer.basicData.command}}</span>
+  </p>
+
+  <p>
+    <span><strong>Command: </strong></span>
+    <span>{{dockerContainer.basicData.created | date:"MM/dd/yyyy 'at' h:mma"}}</span>
+  </p>
+</div>

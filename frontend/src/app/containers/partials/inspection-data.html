@@ -1,0 +1,11 @@
+<div>
+  <p>
+    <span><strong>IP address: </strong></span> <span>{{dockerContainer.inspectionData.ipAddress}}</span>
+  </p>
+
+  <div ng-switch="dockerContainer.inspectionData.state">
+    <label ng-switch-when="RUNNING" class="label label-success">{{dockerContainer.inspectionData.state}}</label>
+    <label ng-switch-when="PAUSED" class="label label-info">{{dockerContainer.inspectionData.state}}</label>
+    <label ng-switch-when="STOPPED" class="label label-danger">{{dockerContainer.inspectionData.state}}</label>
+  </div>
+</div>
