@@ -8,10 +8,17 @@
     <div class="panel-body">
       <div ng-include="'app/containers/partials/basic-data.html'"></div>
       <br/>
+
       <div ng-include="'app/containers/partials/inspection-data.html'"></div>
       <br/>
 
-      <div ng-include="'/app/containers/partials/action-footer.html'"></div>
+      <div
+        ng-if="dockerContainer.inspectionData.state === 'RUNNING'"
+        ng-include="'app/containers/partials/statistics.html'">
+      </div>
+      <br/>
+
+      <div ng-include="'app/containers/partials/action-footer.html'"></div>
 
 
     </div>

@@ -1,0 +1,54 @@
+<div>
+  <button class="btn btn-primary" ng-click="showStatistics = !showStatistics">
+    Show statistics
+  </button>
+  <div ng-show="showStatistics">
+    <div>
+      <h4>Network</h4>
+
+      <p>
+        <span><strong>Bytes received: </strong></span>
+        <span>{{dockerContainer.statistics.network.rx_bytes}}</span>
+      </p>
+
+      <p>
+        <span><strong>Bytes sent: </strong></span>
+        <span>{{dockerContainer.statistics.network.tx_bytes}}</span>
+      </p>
+    </div>
+
+    <div>
+      <h4>CPU</h4>
+
+      <p>
+        <span><strong>Usage in usermode: </strong></span>
+        <span>{{dockerContainer.cpu_stats.usage_in_usermode}}</span>
+      </p>
+
+      <p>
+        <span><strong>Total usage: </strong></span>
+        <span>{{dockerContainer.statistics.cpu_stats.total_usage}}</span>
+      </p>
+
+      <p>
+        <span><strong>Usage in kernelmode: </strong></span>
+        <span>{{dockerContainer.statistics.cpu_stats.usage_in_kernelmode}}</span>
+      </p>
+    </div>
+
+    <div>
+      <h4>Memory</h4>
+
+      <p>
+        <span><strong>Current usage: </strong></span>
+        <span>{{dockerContainer.statistics.memory_stats.usage}}/{{dockerContainer.statistics.memory_stats.limit}}</span>
+      </p>
+
+      <p>
+        <span><strong>Max usage: </strong></span>
+        <span>{{dockerContainer.statistics.memory_stats.max_usage}}</span>
+      </p>
+    </div>
+  </div>
+
+</div>
