@@ -1,6 +1,6 @@
 <div class="container-fluid">
 
-  <div class="panel panel-primary" ng-repeat="dockerImage in dockerImages">
+  <div class="panel panel-primary" ng-repeat="dockerImage in dockerImages" ng-controller="CreateContainerController">
     <div class="panel-heading">
       <h4 class="panel-title">Docker Image</h4>
     </div>
@@ -26,7 +26,7 @@
         <span><strong>Size: </strong> </span> <span>{{dockerImage.size}} MB</span>
       </p>
 
-      <button class="btn btn-primary">Create container!</button>
+      <button class="btn btn-primary" ng-click="showCreationForm(dockerImage.imageId)">Create container!</button>
     </div>
   </div>
 

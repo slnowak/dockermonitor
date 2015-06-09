@@ -5,6 +5,7 @@ import com.github.dockerjava.api.model.Image;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -39,9 +40,14 @@ public class ImageRepository {
                         determineTag(image.getRepoTags()),
                         image.getId(),
                         image.getCreated(),
-                        image.getSize()
+                        convertToMbytes(image.getVirtualSize())
                 ))
                 .collect(Collectors.toList());
+    }
+
+    private BigDecimal convertToMbytes(long possiblyBytes) {
+        // weird...
+        return BigDecimal.valueOf(possiblyBytes / 10000, 2);
     }
 
     private List<Image> getDockerImages() {

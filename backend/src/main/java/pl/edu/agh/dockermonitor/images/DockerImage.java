@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 /**
  * Created by novy on 08.06.15.
  */
@@ -18,5 +20,5 @@ public class DockerImage {
     private String tag;
     private String imageId;
     private long created;
-    private long size;
+    private BigDecimal size;
 }
