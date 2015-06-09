@@ -16,7 +16,7 @@ class DockerImageController {
   }
 
   getDockerImages() {
-    this.DockerContainerResource
+    this.DockerContainerResource.all('')
       .getList()
       .then(dockerImages => this.$scope.dockerImages = dockerImages);
   }

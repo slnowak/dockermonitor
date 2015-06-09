@@ -32,6 +32,13 @@
         <span><strong>Command: </strong></span> <span>{{dockerContainer.command}}</span>
       </p>
 
+      <button
+        class="btn btn-primary" ng-click="performContainerAction(dockerContainer.containerId, 'START')">Start</button>
+      <button class="btn btn-primary" ng-click="performContainerAction(dockerContainer.containerId, 'STOP')">Stop</button>
+      <button class="btn btn-primary" ng-click="performContainerAction(dockerContainer.containerId, 'PAUSE')">Pause</button>
+      <button class="btn btn-primary" ng-click="performContainerAction(dockerContainer.containerId, 'UNPAUSE')">Unpause</button>
+      <button class="btn btn-danger" ng-click="performContainerAction(dockerContainer.containerId, 'REMOVE')">Remove</button>
+
     </div>
   </div>
 

@@ -4,23 +4,29 @@
 
 'use strict';
 
-class DockerContainerController {
+let DockerContainerController = ($scope, DockerContainerResource) => {
 
-  constructor($scope, DockerContainerResource) {
-    this.DockerContainerResource = DockerContainerResource;
-    this.$scope = $scope;
-
-    this.$scope.getDockerContainers = this.getDockerContainers;
-
-    this.getDockerContainers();
-  }
-
-  getDockerContainers() {
-    this.DockerContainerResource
+  let getDockerContainers = () => {
+    DockerContainerResource.all('')
       .getList()
-      .then(dockerContainers => this.$scope.dockerContainers = dockerContainers);
-  }
-}
+      .then(dockerContainers => $scope.dockerContainers = dockerContainers);
+  };
+
+  $scope.getDockerContainers = getDockerContainers;
+
+  $scope.performContainerAction = (dockerContainerId, actionType) => {
+    DockerContainerResource.one(dockerContainerId)
+      .patch({
+        value: actionType
+      })
+      .then(() => {
+        getDockerContainers();
+      })
+  };
+
+  $scope.getDockerContainers();
+
+};
 
 DockerContainerController.$inject = ['$scope', 'DockerContainerResource'];
 

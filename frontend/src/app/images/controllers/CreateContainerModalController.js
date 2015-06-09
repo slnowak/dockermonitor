@@ -7,13 +7,10 @@
 let CreateContainerModalController = ($scope, $modalInstance, imageId) => {
 
   $scope.containerData = {
-    name: "",
+    name: null,
     imageId: imageId,
-    command: "",
-    ports: {
-      outer: "",
-      inner: ""
-    }
+    command: null,
+    ports: null
 
   };
 

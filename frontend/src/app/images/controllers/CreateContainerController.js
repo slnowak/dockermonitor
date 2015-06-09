@@ -22,7 +22,8 @@ let CreateContainerController = ($scope, $modal, DockerContainerResource) => {
 
     modalInstance.result
       .then(newContainerData => {
-        DockerContainerResource.post(newContainerData);
+        DockerContainerResource.all('')
+          .post(newContainerData);
       });
   }
 };

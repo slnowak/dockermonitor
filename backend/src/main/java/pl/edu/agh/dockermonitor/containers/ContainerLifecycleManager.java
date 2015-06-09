@@ -22,7 +22,7 @@ public class ContainerLifecycleManager {
         this.dockerClient = dockerClient;
     }
 
-    public void startContainer(CreateContainerRequest request) {
+    public void createContainer(CreateContainerRequest request) {
         final String imageId = request.getImageId();
         final Optional<String> containerName = request.getName();
         final Optional<String> containerCommand = request.getCommand();
@@ -42,12 +42,43 @@ public class ContainerLifecycleManager {
                     .withCmd(containerCommand.get());
         }
 
-        if(ports.isPresent()) {
+        if (ports.isPresent()) {
             containerCommandBuilder
                     .withPortBindings(PortBinding.parse(ports.get().toString()));
         }
 
         containerCommandBuilder.exec();
+    }
+
+    public void startContainer(String containerId) {
+        System.out.println(containerId);
+        dockerClient
+                .startContainerCmd(containerId)
+                .exec();
+    }
+
+    public void stopContainer(String containerId) {
+        dockerClient
+                .stopContainerCmd(containerId)
+                .exec();
+    }
+
+    public void pauseContainer(String containerId) {
+        dockerClient
+                .pauseContainerCmd(containerId)
+                .exec();
+    }
+
+    public void unpauseContainer(String containerId) {
+        dockerClient
+                .unpauseContainerCmd(containerId)
+                .exec();
+    }
+
+    public void removeContainer(String containerId) {
+        dockerClient
+                .removeContainerCmd(containerId)
+                .exec();
     }
 
 }

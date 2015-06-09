@@ -6,11 +6,11 @@
 
 let endpointUrl = 'http://localhost:8080/docker/containers';
 
-let DockerContainerResource = function (Restangular) {
+let DockerContainerResource = (Restangular) => {
 
-  return Restangular.withConfig(function (RestangularConfigurer) {
+  return Restangular.withConfig((RestangularConfigurer) => {
     RestangularConfigurer.setBaseUrl(endpointUrl);
-  }).all('');
+  });
 
 };
 
