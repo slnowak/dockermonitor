@@ -14,12 +14,12 @@ import java.util.stream.Collectors;
  */
 
 @Component
-public class DockerRepository {
+public class ContainerRepository {
 
     private final DockerClient dockerClient;
 
     @Autowired
-    public DockerRepository(DockerClient dockerClient) {
+    public ContainerRepository(DockerClient dockerClient) {
         this.dockerClient = dockerClient;
     }
 
@@ -28,6 +28,8 @@ public class DockerRepository {
                 .stream()
                 .map(container -> new DockerContainer(
                         container.getId(),
+                        container.getImage(),
+                        container.getNames(),
                         container.getStatus(),
                         container.getCommand()
                 ))

@@ -14,18 +14,18 @@ import java.util.Collection;
 @RequestMapping(value = "/docker")
 public class ContainerController {
 
-    private final DockerRepository dockerRepository;
+    private final ContainerRepository containerRepository;
     private final ContainerLifecycleManager manager;
 
     @Autowired
-    public ContainerController(DockerRepository dockerRepository, ContainerLifecycleManager manager) {
-        this.dockerRepository = dockerRepository;
+    public ContainerController(ContainerRepository containerRepository, ContainerLifecycleManager manager) {
+        this.containerRepository = containerRepository;
         this.manager = manager;
     }
 
     @RequestMapping(value = "/containers", method = RequestMethod.GET)
     public Collection<DockerContainer> containers() {
-        return dockerRepository.loadContainers();
+        return containerRepository.loadContainers();
     }
 
     @RequestMapping(value = "/containers", method = RequestMethod.POST)

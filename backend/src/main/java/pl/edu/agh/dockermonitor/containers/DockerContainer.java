@@ -15,6 +15,8 @@ import lombok.NoArgsConstructor;
 public class DockerContainer {
 
     private String containerId;
+    private String imageId;
+    private String[] names;
     private String status;
     private String command;
 

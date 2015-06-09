@@ -39,7 +39,7 @@ public class ImageRepository {
                         determineRepositoryName(image.getRepoTags()),
                         determineTag(image.getRepoTags()),
                         image.getId(),
-                        image.getCreated(),
+                        fromUnixEpoch(image.getCreated()),
                         convertToMbytes(image.getVirtualSize())
                 ))
                 .collect(Collectors.toList());
@@ -48,6 +48,10 @@ public class ImageRepository {
     private BigDecimal convertToMbytes(long possiblyBytes) {
         // weird...
         return BigDecimal.valueOf(possiblyBytes / 10000, 2);
+    }
+
+    private long fromUnixEpoch(long unixDate) {
+        return unixDate * 1000;
     }
 
     private List<Image> getDockerImages() {

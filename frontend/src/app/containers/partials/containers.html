@@ -11,6 +11,20 @@
       </p>
 
       <p>
+        <span><strong>Image ID: </strong></span> <span>{{dockerContainer.imageId}}</span>
+      </p>
+
+      <div>
+        <p>
+          <span><strong>Names: </strong></span>
+        </p>
+
+        <ul>
+          <li class="list-unstyled" ng-repeat="name in dockerContainer.names">{{name}}</li>
+        </ul>
+      </div>
+
+      <p>
         <span><strong>Container status: </strong></span> <span>{{dockerContainer.status}}</span>
       </p>
 
