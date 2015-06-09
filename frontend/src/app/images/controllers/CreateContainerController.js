@@ -4,7 +4,7 @@
 
 'use strict';
 
-let CreateContainerController = ($scope, $modal) => {
+let CreateContainerController = ($scope, $modal, DockerContainerResource) => {
 
   $scope.showCreationForm = (dockerImageId) => {
 
@@ -22,11 +22,11 @@ let CreateContainerController = ($scope, $modal) => {
 
     modalInstance.result
       .then(newContainerData => {
-        console.log(newContainerData);
+        DockerContainerResource.post(newContainerData);
       });
   }
 };
 
-CreateContainerController.$inject = ['$scope', '$modal'];
+CreateContainerController.$inject = ['$scope', '$modal', 'DockerContainerResource'];
 
 export default CreateContainerController;

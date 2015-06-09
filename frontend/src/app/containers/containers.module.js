@@ -4,11 +4,12 @@
 
 'use strict';
 
-import DockerContainerResource from './services/DockerContainerResource.js'
+import CommonModule from '../common/common.module.js';
 import DockerContainerController from './controllers/DockerContainerController.js'
 
-let DockerContainerModule = angular.module('dockerManager.dockerContainersModule', ['restangular'])
-  .factory('DockerContainerResource', DockerContainerResource)
+let DockerContainerModule = angular.module('dockerManager.dockerContainersModule', [
+  CommonModule.name
+])
   .controller('DockerContainerController', DockerContainerController);
 
 export default DockerContainerModule;

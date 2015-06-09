@@ -12,13 +12,13 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping(value = "/docker")
-public class DockerController {
+public class ContainerController {
 
     private final DockerRepository dockerRepository;
     private final ContainerLifecycleManager manager;
 
     @Autowired
-    public DockerController(DockerRepository dockerRepository, ContainerLifecycleManager manager) {
+    public ContainerController(DockerRepository dockerRepository, ContainerLifecycleManager manager) {
         this.dockerRepository = dockerRepository;
         this.manager = manager;
     }
@@ -30,8 +30,8 @@ public class DockerController {
 
     @RequestMapping(value = "/containers", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public void startContainer(@RequestBody String imageName) {
-        manager.startContainer(imageName);
+    public void startContainer(@RequestBody CreateContainerRequest request) {
+        manager.startContainer(request);
     }
 }
 
