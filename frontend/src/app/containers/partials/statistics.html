@@ -1,0 +1,78 @@
+<div>
+  <button class="btn btn-primary" ng-click="showStatistics = !showStatistics">
+    Show statistics
+  </button>
+  <br/>
+  <br/>
+
+  <div class="container">
+    <div ng-show="showStatistics" class="col-md-4">
+      <div class="row">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            Network
+          </div>
+
+          <div class="panel-body">
+            <p>
+              <span><strong>Received: </strong></span>
+              <span>{{dockerContainer.statistics.network.rx_bytes}} B</span>
+            </p>
+
+            <p>
+              <span><strong>Sent: </strong></span>
+              <span>{{dockerContainer.statistics.network.tx_bytes}} B</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            CPU
+          </div>
+
+          <div class="panel-body">
+
+            <p>
+              <span><strong>Usage in usermode: </strong></span>
+              <span>{{dockerContainer.statistics.cpu_stats.cpu_usage.usage_in_usermode}}</span>
+            </p>
+
+            <p>
+              <span><strong>Total usage: </strong></span>
+              <span>{{dockerContainer.statistics.cpu_stats.cpu_usage.total_usage}}</span>
+            </p>
+
+            <p>
+              <span><strong>Usage in kernelmode: </strong></span>
+              <span>{{dockerContainer.statistics.cpu_stats.cpu_usage.usage_in_kernelmode}}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            Memory
+          </div>
+
+          <div class="panel-body">
+            <p>
+              <span><strong>Current usage: </strong></span>
+              <span>{{toMegaBytes(dockerContainer.statistics.memory_stats.usage) | number:2}}/{{toMegaBytes(dockerContainer.statistics.memory_stats.limit) | number:2}} MB</span>
+            </p>
+
+            <p>
+              <span><strong>Max usage: </strong></span>
+              <span>{{toMegaBytes(dockerContainer.statistics.memory_stats.max_usage) | number:2}} MB</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

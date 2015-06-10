@@ -1,5 +1,6 @@
 package pl.edu.agh.dockermonitor.containers.query.containerinfo;
 
+import com.github.dockerjava.api.model.Statistics;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,6 +19,6 @@ public class DockerContainer {
 
     private BasicData basicData;
     private InspectionData inspectionData;
-    private Optional<ContainerStatistics> statistics = Optional.empty();
+    private Optional<Statistics> statistics = Optional.empty();
 
 }
