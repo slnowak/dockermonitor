@@ -26,12 +26,20 @@ class ContainerRepositoryTest extends Specification {
 
         def inspectionDataProviderMock = Mock(InspectionDataProvider.class)
         inspectionDataProviderMock.getInspectionDataFor("id1") >> new InspectionData(
-                "ip1", State.RUNNING
+                "ip1", State.PAUSED
         )
         inspectionDataProviderMock.getInspectionDataFor("id2") >> new InspectionData(
                 "ip2", State.STOPPED
         )
-        def objectUnderTest = new ContainerRepository(basicDataProviderMock, inspectionDataProviderMock)
+
+        def statisticsProviderMock = Mock(StatisticsProvider.class)
+        statisticsProviderMock.statisticsFor(_ as String) >> Optional.empty()
+
+        def objectUnderTest = new ContainerRepository(
+                basicDataProviderMock,
+                inspectionDataProviderMock,
+                statisticsProviderMock
+        )
 
         when:
         def actualData = objectUnderTest.loadContainers()
@@ -43,7 +51,7 @@ class ContainerRepositoryTest extends Specification {
                                 "id1", "imId1", ["name1"] as String[], "status1", "command1", 1
                         ),
                         new InspectionData(
-                                "ip1", State.RUNNING
+                                "ip1", State.PAUSED
                         ),
                         Optional.empty()
                 ),

@@ -13,7 +13,7 @@
       <br/>
 
       <div
-        ng-if="dockerContainer.inspectionData.state === 'RUNNING'"
+        ng-if="dockerContainer.inspectionData.state !== 'STOPPED'"
         ng-include="'app/containers/partials/statistics.html'">
       </div>
       <br/>
