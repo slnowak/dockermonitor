@@ -31,12 +31,18 @@
 
             <div class="form-group col-md-3">
               <label for="outer">Outer port: </label>
-              <input name="outer" type="number" id="outer" ng-model="containerData.ports.outer" class="form-control">
+              <input name="outer" type="number" id="outer"
+                     ng-model="containerData.ports.outer"
+                     class="form-control"
+                     ng-required="nonEmptyValue(containerData.ports.inner)">
             </div>
 
             <div class="form-group col-md-3">
               <label for="inner">Inner port: </label>
-              <input name="inner" type="number" id="inner" ng-model="containerData.ports.inner" class="form-control">
+              <input name="inner" type="number" id="inner"
+                     ng-model="containerData.ports.inner"
+                     class="form-control"
+                     ng-required="nonEmptyValue(containerData.ports.outer)">
             </div>
           </div>
 
