@@ -62,12 +62,12 @@
           <div class="panel-body">
             <p>
               <span><strong>Current usage: </strong></span>
-              <span>{{dockerContainer.statistics.memory_stats.usage / (1024 * 1024) | number:2}}/{{dockerContainer.statistics.memory_stats.limit / (1024 * 1024) | number:2}} MB</span>
+              <span>{{toMegaBytes(dockerContainer.statistics.memory_stats.usage) | number:2}}/{{toMegaBytes(dockerContainer.statistics.memory_stats.limit) | number:2}} MB</span>
             </p>
 
             <p>
               <span><strong>Max usage: </strong></span>
-              <span>{{dockerContainer.statistics.memory_stats.max_usage / (1024 * 1024) | number:2}} MB</span>
+              <span>{{toMegaBytes(dockerContainer.statistics.memory_stats.max_usage) | number:2}} MB</span>
             </p>
           </div>
         </div>

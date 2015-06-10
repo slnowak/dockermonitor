@@ -24,6 +24,10 @@ let DockerContainerController = ($scope, DockerContainerResource) => {
       });
   };
 
+  $scope.toMegaBytes = (bytes) => {
+    return bytes / (1024 * 1024);
+  };
+
   $scope.getDockerContainers();
 
 };
