@@ -3,7 +3,6 @@ package pl.edu.agh.dockermonitor.containers.command;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.edu.agh.dockermonitor.containers.command.BoundPorts;
 
 import java.util.Optional;
 

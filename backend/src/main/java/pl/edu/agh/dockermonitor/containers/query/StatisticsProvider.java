@@ -3,76 +3,58 @@ package pl.edu.agh.dockermonitor.containers.query;
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.command.StatsCallback;
 import com.github.dockerjava.api.model.Statistics;
+import com.google.common.eventbus.EventBus;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import java.util.Optional;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingDeque;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
+import pl.edu.agh.dockermonitor.containers.query.containerinfo.ContainerStatistics;
 
 /**
  * Created by novy on 10.06.15.
  */
 
-@Component
+@Service
 public class StatisticsProvider {
 
     private final DockerClient dockerClient;
+    private final EventBus eventBus;
 
     @Autowired
-    public StatisticsProvider(DockerClient dockerClient) {
+    public StatisticsProvider(DockerClient dockerClient, EventBus eventBus) {
         this.dockerClient = dockerClient;
+        this.eventBus = eventBus;
     }
 
-    public Optional<Statistics> statisticsFor(String containerId) {
-
-        // the api for StatsCmd is async, but I don't really understand why
-        // so this is a temporary workaround
-        // for more details, check https://github.com/docker-java/docker-java/issues/242
-
-        final BlockingQueue<Optional<Statistics>> queue = new LinkedBlockingDeque<>();
-        final BlockingQueueAwareStatsCallback statsCallback = new BlockingQueueAwareStatsCallback(queue);
+    @Async
+    public void requestStatisticsFor(String containerId) {
+        System.out.println("called witj " + containerId + " in " + Thread.currentThread().getName());
+        final EventBusAwareCallback statsCallback = new EventBusAwareCallback(containerId, eventBus);
 
         dockerClient
                 .statsCmd(statsCallback)
                 .withContainerId(containerId)
                 .exec();
-
-        Optional<Statistics> optionalStats = Optional.empty();
-        try {
-            optionalStats = queue.take();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return optionalStats;
     }
 
-    private class BlockingQueueAwareStatsCallback implements StatsCallback {
+    private class EventBusAwareCallback implements StatsCallback {
 
-        private final BlockingQueue<Optional<Statistics>> queue;
+        private final String containerId;
+        private final EventBus eventBus;
 
-        public BlockingQueueAwareStatsCallback(BlockingQueue<Optional<Statistics>> queue) {
-            this.queue = queue;
+        public EventBusAwareCallback(String containerId, EventBus eventBus) {
+            this.containerId = containerId;
+            this.eventBus = eventBus;
         }
 
         @Override
         public void onStats(Statistics stats) {
-            System.out.println(stats.getMemoryStats());
-            try {
-                queue.put(Optional.of(stats));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            eventBus.post(
+                    new ContainerStatistics(containerId, stats)
+            );
         }
 
         @Override
         public void onException(Throwable throwable) {
-            try {
-                queue.put(Optional.empty());
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
 
         @Override

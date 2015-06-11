@@ -32,13 +32,9 @@ class ContainerRepositoryTest extends Specification {
                 "ip2", State.STOPPED
         )
 
-        def statisticsProviderMock = Mock(StatisticsProvider.class)
-        statisticsProviderMock.statisticsFor(_ as String) >> Optional.empty()
-
         def objectUnderTest = new ContainerRepository(
                 basicDataProviderMock,
-                inspectionDataProviderMock,
-                statisticsProviderMock
+                inspectionDataProviderMock
         )
 
         when:
@@ -52,8 +48,7 @@ class ContainerRepositoryTest extends Specification {
                         ),
                         new InspectionData(
                                 "ip1", State.PAUSED
-                        ),
-                        Optional.empty()
+                        )
                 ),
                 new DockerContainer(
                         new BasicData(
@@ -61,8 +56,7 @@ class ContainerRepositoryTest extends Specification {
                         ),
                         new InspectionData(
                                 "ip2", State.STOPPED
-                        ),
-                        Optional.empty()
+                        )
                 )
         ]
     }

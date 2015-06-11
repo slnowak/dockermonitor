@@ -3,13 +3,17 @@ package pl.edu.agh.dockermonitor.containers;
 import com.google.common.collect.ImmutableMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.*;
 import pl.edu.agh.dockermonitor.containers.command.ContainerLifecycleManager;
 import pl.edu.agh.dockermonitor.containers.command.ContainerStateTransition;
 import pl.edu.agh.dockermonitor.containers.command.ContainerStateTransitionDTO;
 import pl.edu.agh.dockermonitor.containers.command.CreateContainerRequest;
 import pl.edu.agh.dockermonitor.containers.query.ContainerRepository;
+import pl.edu.agh.dockermonitor.containers.query.StatisticsDispatcher;
+import pl.edu.agh.dockermonitor.containers.query.StatisticsProvider;
 import pl.edu.agh.dockermonitor.containers.query.containerinfo.DockerContainer;
+import pl.edu.agh.dockermonitor.containers.query.containerinfo.State;
 
 import java.util.Collection;
 import java.util.Map;
@@ -26,12 +30,16 @@ import static pl.edu.agh.dockermonitor.containers.command.ContainerStateTransiti
 public class ContainerController {
 
     private final ContainerRepository containerRepository;
+    private final StatisticsDispatcher statisticsDispatcher;
     private final ContainerLifecycleManager manager;
     private final Map<ContainerStateTransition, Consumer<String>> containerStateActions;
 
     @Autowired
-    public ContainerController(ContainerRepository containerRepository, ContainerLifecycleManager manager) {
+    public ContainerController(ContainerRepository containerRepository,
+                               StatisticsDispatcher statisticsDispatcher,
+                               ContainerLifecycleManager manager) {
         this.containerRepository = containerRepository;
+        this.statisticsDispatcher = statisticsDispatcher;
         this.manager = manager;
 
         containerStateActions = ImmutableMap.of(
@@ -45,7 +53,10 @@ public class ContainerController {
 
     @RequestMapping(value = "/containers", method = RequestMethod.GET)
     public Collection<DockerContainer> containers() {
-        return containerRepository.loadContainers();
+        final Collection<DockerContainer> dockerContainers = containerRepository.loadContainers();
+        System.out.println("imma in thread " + Thread.currentThread().getName());
+        requestStatisticsFor(dockerContainers);
+        return dockerContainers;
     }
 
     @RequestMapping(value = "/containers", method = RequestMethod.POST)
@@ -61,6 +72,17 @@ public class ContainerController {
 
         // todo: validation maybe
         containerStateActions.get(stateTransition.getValue()).accept(containerId);
+    }
+
+    @Async
+    private void requestStatisticsFor(Collection<DockerContainer> containers) {
+        containers.stream()
+                .filter(container -> container.getInspectionData().getState() != State.STOPPED)
+                .forEach(
+                        container -> statisticsDispatcher.requestStatisticsFor(
+                                container.getBasicData().getContainerId()
+                        )
+                );
     }
 }
 
