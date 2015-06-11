@@ -36,7 +36,7 @@ public class StatisticsDispatcher {
     public void dispatchContainerStatistics(ContainerStatistics statistics) {
 
         messagingTemplate.convertAndSend(
-                "/statistics", statistics
+                "/containers/statistics", statistics
         );
     }
 }

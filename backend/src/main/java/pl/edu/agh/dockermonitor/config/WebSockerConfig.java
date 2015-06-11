@@ -15,6 +15,6 @@ public class WebSockerConfig extends AbstractWebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-        registry.addEndpoint("/docker/containers").setAllowedOrigins("*").withSockJS();
+        registry.addEndpoint("/docker").setAllowedOrigins("*").withSockJS();
     }
 }

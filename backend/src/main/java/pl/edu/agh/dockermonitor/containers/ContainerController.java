@@ -54,7 +54,6 @@ public class ContainerController {
     @RequestMapping(value = "/containers", method = RequestMethod.GET)
     public Collection<DockerContainer> containers() {
         final Collection<DockerContainer> dockerContainers = containerRepository.loadContainers();
-        System.out.println("imma in thread " + Thread.currentThread().getName());
         requestStatisticsFor(dockerContainers);
         return dockerContainers;
     }
@@ -70,7 +69,6 @@ public class ContainerController {
     public void changeContainerState(@PathVariable(value = "containerId") String containerId,
                                      @RequestBody ContainerStateTransitionDTO stateTransition) {
 
-        // todo: validation maybe
         containerStateActions.get(stateTransition.getValue()).accept(containerId);
     }
 

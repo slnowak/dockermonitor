@@ -27,7 +27,6 @@ public class StatisticsProvider {
 
     @Async
     public void requestStatisticsFor(String containerId) {
-        System.out.println("called witj " + containerId + " in " + Thread.currentThread().getName());
         final EventBusAwareCallback statsCallback = new EventBusAwareCallback(containerId, eventBus);
 
         dockerClient

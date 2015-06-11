@@ -51,7 +51,6 @@ public class ContainerLifecycleManager {
     }
 
     public void startContainer(String containerId) {
-        System.out.println(containerId);
         dockerClient
                 .startContainerCmd(containerId)
                 .exec();

@@ -4,12 +4,33 @@
 
 'use strict';
 
-let DockerContainerController = ($scope, DockerContainerResource) => {
+let lodash = require('lodash');
+
+let DockerContainerController = ($scope, DockerContainerResource, StatisticsService) => {
+
+  let appendStatistics = statisticsWithId => {
+    let containerId = statisticsWithId.containerId;
+    let statistics = statisticsWithId.statistics;
+
+    let dockerContainer = lodash.find(
+      $scope.dockerContainers, container => container.basicData.containerId === containerId
+    );
+
+    if (dockerContainer !== undefined) {
+      dockerContainer.statistics = statistics;
+    }
+
+  };
 
   let getDockerContainers = () => {
     DockerContainerResource.all('')
       .getList()
       .then(dockerContainers => $scope.dockerContainers = dockerContainers);
+
+    StatisticsService.receivedStatistics()
+      .then(null, null, statistics => {
+        appendStatistics(statistics);
+      });
   };
 
   $scope.getDockerContainers = getDockerContainers;
@@ -32,6 +53,6 @@ let DockerContainerController = ($scope, DockerContainerResource) => {
 
 };
 
-DockerContainerController.$inject = ['$scope', 'DockerContainerResource'];
+DockerContainerController.$inject = ['$scope', 'DockerContainerResource', 'StatisticsService'];
 
 export default DockerContainerController;
