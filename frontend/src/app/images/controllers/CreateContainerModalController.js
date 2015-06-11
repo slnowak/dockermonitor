@@ -30,7 +30,7 @@ let CreateContainerModalController = ($scope, $modalInstance, imageId) => {
     if (containerDataCopy.hasOwnProperty(portsProperty) &&
       (!nonEmptyValue(containerDataCopy[portsProperty].outer) || !nonEmptyValue(containerDataCopy[portsProperty].inner))) {
 
-      delete containerDataCopy[portsProperty]
+      delete containerDataCopy[portsProperty];
     }
 
     return containerDataCopy;
