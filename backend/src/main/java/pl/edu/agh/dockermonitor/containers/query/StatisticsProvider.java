@@ -5,9 +5,11 @@ import com.github.dockerjava.api.command.StatsCallback;
 import com.github.dockerjava.api.model.Statistics;
 import com.google.common.eventbus.EventBus;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import pl.edu.agh.dockermonitor.containers.query.containerinfo.ContainerStatistics;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by novy on 10.06.15.
@@ -16,6 +18,7 @@ import pl.edu.agh.dockermonitor.containers.query.containerinfo.ContainerStatisti
 @Service
 public class StatisticsProvider {
 
+    private static final int TIMEOUT = 5;
     private final DockerClient dockerClient;
     private final EventBus eventBus;
 
@@ -25,14 +28,21 @@ public class StatisticsProvider {
         this.eventBus = eventBus;
     }
 
-    @Async
     public void requestStatisticsFor(String containerId) {
         final EventBusAwareCallback statsCallback = new EventBusAwareCallback(containerId, eventBus);
 
-        dockerClient
-                .statsCmd(statsCallback)
-                .withContainerId(containerId)
-                .exec();
+        try {
+            final ExecutorService executorService = dockerClient
+                    .statsCmd(statsCallback)
+                    .withContainerId(containerId)
+                    .exec();
+
+            executorService.awaitTermination(TIMEOUT, TimeUnit.SECONDS);
+            executorService.shutdownNow();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private class EventBusAwareCallback implements StatsCallback {

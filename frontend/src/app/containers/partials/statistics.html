@@ -16,12 +16,12 @@
           <div class="panel-body">
             <p>
               <span><strong>Received: </strong></span>
-              <span>{{dockerContainer.statistics.network.rx_bytes}} B</span>
+              <span>{{statistics.get(dockerContainer.basicData.containerId).network.rx_bytes}} B</span>
             </p>
 
             <p>
               <span><strong>Sent: </strong></span>
-              <span>{{dockerContainer.statistics.network.tx_bytes}} B</span>
+              <span>{{statistics.get(dockerContainer.basicData.containerId).network.tx_bytes}} B</span>
             </p>
           </div>
         </div>
@@ -37,17 +37,17 @@
 
             <p>
               <span><strong>Usage in usermode: </strong></span>
-              <span>{{dockerContainer.statistics.cpu_stats.cpu_usage.usage_in_usermode}}</span>
+              <span>{{statistics.get(dockerContainer.basicData.containerId).cpu_stats.cpu_usage.usage_in_usermode}}</span>
             </p>
 
             <p>
               <span><strong>Total usage: </strong></span>
-              <span>{{dockerContainer.statistics.cpu_stats.cpu_usage.total_usage}}</span>
+              <span>{{statistics.get(dockerContainer.basicData.containerId).cpu_stats.cpu_usage.total_usage}}</span>
             </p>
 
             <p>
               <span><strong>Usage in kernelmode: </strong></span>
-              <span>{{dockerContainer.statistics.cpu_stats.cpu_usage.usage_in_kernelmode}}</span>
+              <span>{{statistics.get(dockerContainer.basicData.containerId).cpu_stats.cpu_usage.usage_in_kernelmode}}</span>
             </p>
           </div>
         </div>
@@ -62,12 +62,13 @@
           <div class="panel-body">
             <p>
               <span><strong>Current usage: </strong></span>
-              <span>{{toMegaBytes(dockerContainer.statistics.memory_stats.usage) | number:2}}/{{toMegaBytes(dockerContainer.statistics.memory_stats.limit) | number:2}} MB</span>
+              <span>{{toMegaBytes(statistics.get(dockerContainer.basicData.containerId).memory_stats.usage) | number:2}}/
+                {{toMegaBytes(statistics.get(dockerContainer.basicData.containerId).memory_stats.limit) | number:2}} MB</span>
             </p>
 
             <p>
               <span><strong>Max usage: </strong></span>
-              <span>{{toMegaBytes(dockerContainer.statistics.memory_stats.max_usage) | number:2}} MB</span>
+              <span>{{toMegaBytes(statistics.get(dockerContainer.basicData.containerId).memory_stats.max_usage) | number:2}} MB</span>
             </p>
           </div>
         </div>

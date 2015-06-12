@@ -12,25 +12,18 @@ let DockerContainerController = ($scope, DockerContainerResource, StatisticsServ
     let containerId = statisticsWithId.containerId;
     let statistics = statisticsWithId.statistics;
 
-    let dockerContainer = lodash.find(
-      $scope.dockerContainers, container => container.basicData.containerId === containerId
-    );
-
-    if (dockerContainer !== undefined) {
-      dockerContainer.statistics = statistics;
-    }
-
+    $scope.statistics.set(containerId, statistics);
   };
 
   let getDockerContainers = () => {
-    DockerContainerResource.all('')
-      .getList()
-      .then(dockerContainers => $scope.dockerContainers = dockerContainers);
-
     StatisticsService.receivedStatistics()
       .then(null, null, statistics => {
         appendStatistics(statistics);
       });
+
+    DockerContainerResource.all('')
+      .getList()
+      .then(dockerContainers => $scope.dockerContainers = dockerContainers);
   };
 
   $scope.getDockerContainers = getDockerContainers;
@@ -49,6 +42,7 @@ let DockerContainerController = ($scope, DockerContainerResource, StatisticsServ
     return bytes / (1024 * 1024);
   };
 
+  $scope.statistics = new Map();
   $scope.getDockerContainers();
 
 };

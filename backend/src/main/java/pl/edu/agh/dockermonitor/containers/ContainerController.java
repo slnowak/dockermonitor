@@ -11,7 +11,6 @@ import pl.edu.agh.dockermonitor.containers.command.ContainerStateTransitionDTO;
 import pl.edu.agh.dockermonitor.containers.command.CreateContainerRequest;
 import pl.edu.agh.dockermonitor.containers.query.ContainerRepository;
 import pl.edu.agh.dockermonitor.containers.query.StatisticsDispatcher;
-import pl.edu.agh.dockermonitor.containers.query.StatisticsProvider;
 import pl.edu.agh.dockermonitor.containers.query.containerinfo.DockerContainer;
 import pl.edu.agh.dockermonitor.containers.query.containerinfo.State;
 
@@ -72,7 +71,6 @@ public class ContainerController {
         containerStateActions.get(stateTransition.getValue()).accept(containerId);
     }
 
-    @Async
     private void requestStatisticsFor(Collection<DockerContainer> containers) {
         containers.stream()
                 .filter(container -> container.getInspectionData().getState() != State.STOPPED)

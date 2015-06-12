@@ -24,4 +24,5 @@ public class EventBusConfig {
     public EventBus eventBus(Executor executor) {
         return new AsyncEventBus(executor);
     }
+
 }

@@ -10,8 +10,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
  */
 
 @SpringBootApplication
-@Configuration
-@EnableAsync
 public class Application {
 
     public static void main(String[] args) {

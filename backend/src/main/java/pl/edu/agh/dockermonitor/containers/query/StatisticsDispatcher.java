@@ -5,6 +5,7 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import pl.edu.agh.dockermonitor.containers.query.containerinfo.ContainerStatistics;
 
@@ -27,6 +28,7 @@ public class StatisticsDispatcher {
         eventBus.register(this);
     }
 
+    @Async
     public void requestStatisticsFor(String containerId) {
         statisticsProvider.requestStatisticsFor(containerId);
     }
